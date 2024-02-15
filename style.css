@@ -3,11 +3,17 @@
     box-sizing: border-box;
     font-family: Helvetica, sans-serif;
 }
+:root {
+    --p1color1: #F6F1F1;
+    --p1color2: #AFD3E2;
+    --p1color3: #19A7CEaa;
+    --p1color4: #146C94;
+}
 body {
-    background-color: #f1faee;
+    background-color: var(--p1color1);
 }
 header {
-    background-color: #457b9d;
+    background-color: var(--p1color4);
     padding: 10px;
     font-weight: bold;
     height: 58px;
@@ -15,89 +21,58 @@ header {
     align-items: center;
     color: white;
 }
-header span {
+header a {
+    color: white;
+    cursor: pointer;
+
+    padding: 11px;
+}
+header a:hover {
+    background-color: #ffffff22;
+}
+header i {
+    font-size: large;
+}
+header h1 {
     font-size: 20px;
     margin-left: 10px;
 }
 main {
     margin: 10px;
 }
-.location p {
+a {
+    color: black;
+    text-decoration: none;
+}
+/* Sections =======================================*/
+/* Location */
+#location {
     font-size: 12px;
     margin-left: 20px;
     margin-bottom: 10px;
 }
-.location a {
-    color: black;
-}
-.location a:hover {
+#location a:hover {
     color: blue;
     text-decoration: underline;
 }
-#satuan_pcs_p {
-    text-align: center;
+/* Main Content */
+#main-content {
+    padding: 0 5px;
 }
-section {
-    margin: 10px;
-}
-details {
-    background-color: #457b9d22;
-    margin-bottom: 5px;
-}
-details#total {
-    background-color: #ecf8e1aa;
-    position: sticky;
-    bottom: 0;
-}
-details#total summary {
-    background-color: #e3f2d2aa;
-}
-summary {
-    background-color: #457b9d33;
-}
-summary, section > p, details > div {
-    padding: 10px;
-}
-#cap-lelehan-white {
+.button-links {
     display: flex;
-}
-#lelehan-white {
-    margin-left: 20px;
-}
-section > p {
-    margin-top: 20px;
-    background-color: #457b9d22;
-}
-#line {
-    display: flex;
-    max-width: 600px;
-    justify-content: space-around;
-}
-button {
-    cursor: pointer;
-    padding: 10px;
-}
-a {
-    text-decoration: none;
-}
-.back {
-    border: none;
-    background: none;
-    color: white;
-}
-.back:hover {
-    background-color: #ffffff22;
-}
-i {
-    font-size: large;
-}
-.buttons {
-    background-color: #a8dadc;
+    justify-content: center;
+    align-items: center;
+    
+    margin-bottom: 10px;
+
     width: 100%;
     height: 100px;
+    
     font-size: 20px;
-    margin-bottom: 10px;
+    background-color: var(--p1color2);
+    border: solid 2px var(--p1color4);
 }
-button:disabled {
-    cursor: default;
+.button-links:hover {
+    background-color: #9bbbc9;
 }

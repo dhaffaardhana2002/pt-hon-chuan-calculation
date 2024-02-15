@@ -12,11 +12,11 @@
 			<a href="./">
 				<i class="bi bi-arrow-left"></i>
 			</a>
-			<h1>Berat OK & Reject CMC-08</h1>
+			<h1>Berat OK & Reject CMC-09</h1>
 		</header>
 		<main>
 			<section id="location">
-				<a href="../">Home</a> > <a href="../capshield.html">Cap Shield</a> > <a href="./">CMC-08</a> > Berat OK & Reject
+				<a href="../">Home</a> > <a href="../capshield.html">Cap Shield</a> > <a href="./">CMC-09</a> > Berat OK & Reject
 			</section>
 
 			<section id="main-content">
@@ -28,15 +28,15 @@
 							<td>:</td>
 							<td>
 								<select name="mesin" id="mesin">
-									<option value="cmc08">CMC-08</option>
-									<!-- <option value="cmc09" disabled>CMC-09</option> -->
+									<!-- <option value="cmc08">CMC-08</option> -->
+									<option value="cmc09">CMC-09</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<td><label for="satuan_pcs">Berat satuan pcs</label></td>
 							<td>:</td>
-							<td><input type="number" name="satuan_pcs" id="satuan_pcs" value="10.663"></td>
+							<td><input type="number" name="satuan_pcs" id="satuan_pcs" value="10.682"></td>
 						</tr>
 					</table>
 				</section>
@@ -60,22 +60,22 @@
 							<br>
 							<table>
 								<tr>
-									<td>HDPE (63,680%)</td>
+									<td>HDPE (63,720%)</td>
 									<td>:</td>
 									<td><span id="ok_hdpe">N/A</span></td>
 								</tr>
 								<tr>
-									<td>LDPE (34,380%)</td>
+									<td>LDPE (34,319%)</td>
 									<td>:</td>
 									<td><span id="ok_ldpe">N/A</span></td>
 								</tr>
 								<tr>
-									<td>MB Putih (1,480%)</td>
+									<td>MB Putih (1,471%)</td>
 									<td>:</td>
 									<td><span id="ok_mbputih">N/A</span></td>
 								</tr>
 								<tr>
-									<td>MB Biru (0,460%)</td>
+									<td>MB Biru (0,490%)</td>
 									<td>:</td>
 									<td><span id="ok_mbbiru">N/A</span></td>
 								</tr>
@@ -100,22 +100,22 @@
 							<br>	
 							<table>
 								<tr>
-									<td>HDPE (63,680%)</td>
+									<td>HDPE (63,720%)</td>
 									<td>:</td>
 									<td><span id="reject_hdpe">N/A</span></td>
 								</tr>
 								<tr>
-									<td>LDPE (34,380%)</td>
+									<td>LDPE (34,319%)</td>
 									<td>:</td>
 									<td><span id="reject_ldpe">N/A</span></td>
 								</tr>
 								<tr>
-									<td>MB Putih (1,480%)</td>
+									<td>MB Putih (1,471%)</td>
 									<td>:</td>
 									<td><span id="reject_mbputih">N/A</span></td>
 								</tr>
 								<tr>
-									<td>MB Biru (0,460%)</td>
+									<td>MB Biru (0,490%)</td>
 									<td>:</td>
 									<td><span id="reject_mbbiru">N/A</span></td>
 								</tr>
@@ -140,17 +140,17 @@
 							<br>
 							<table>
 								<tr>
-									<td>HDPE (78,430%)</td>
+									<td>HDPE (78,431%)</td>
 									<td>:</td>
 									<td><span id="blue_hdpe">N/A</span></td>
 								</tr>
 								<tr>
-									<td>LDPE (19,610%)</td>
+									<td>LDPE (19,608%)</td>
 									<td>:</td>
 									<td><span id="blue_ldpe">N/A</span></td>
 								</tr>
 								<tr>
-									<td>MB Biru (1,960%)</td>
+									<td>MB Biru (1,961%)</td>
 									<td>:</td>
 									<td><span id="blue_mbbiru">N/A</span></td>
 								</tr>
@@ -209,17 +209,17 @@
 							<br>
 							<table>
 								<tr>
-									<td>HDPE (58,820%)</td>
+									<td>HDPE (58,824%)</td>
 									<td>:</td>
 									<td><span id="white_hdpe">N/A</span></td>
 								</tr>
 								<tr>
-									<td>LDPE (39,220%)</td>
+									<td>LDPE (39,216%)</td>
 									<td>:</td>
 									<td><span id="white_ldpe">N/A</span></td>
 								</tr>
 								<tr>
-									<td>MB Putih (1,960%)</td>
+									<td>MB Putih (1,961%)</td>
 									<td>:</td>
 									<td><span id="white_mbputih">N/A</span></td>
 								</tr>
@@ -275,20 +275,20 @@
 		<script>
 			// PERSENTAGE ======================================================
 			// Berat OK & Reject
-			const HDPE_PERCENTAGE = 63.680;
-			const LDPE_PERCENTAGE = 34.380;
-			const MB_PUTIH_PERCENTAGE = 1.480;
-			const MB_BIRU_PERCENTAGE = 0.460;
+			const HDPE_PERCENTAGE = 63.720;
+			const LDPE_PERCENTAGE = 34.319;
+			const MB_PUTIH_PERCENTAGE = 1.471;
+			const MB_BIRU_PERCENTAGE = 0.490;
 			// Berat Lelehan Biru
-			const BLUE_HDPE_PERCENTAGE = 78.430;
-			const BLUE_LDPE_PERCENTAGE = 19.610;
-			const BLUE_MB_BIRU_PERCENTAGE = 1.960;
+			const BLUE_HDPE_PERCENTAGE = 78.431;
+			const BLUE_LDPE_PERCENTAGE = 19.608;
+			const BLUE_MB_BIRU_PERCENTAGE = 1.961;
 			// Berat Putih (Cap & Lelehan)
-			const WHITE_HDPE_PERCENTAGE = 58.820;
-			const WHITE_LDPE_PERCENTAGE = 39.220;
-			const WHITE_MB_PUTIH_PERCENTAGE = 1.960;
+			const WHITE_HDPE_PERCENTAGE = 58.824;
+			const WHITE_LDPE_PERCENTAGE = 39.216;
+			const WHITE_MB_PUTIH_PERCENTAGE = 1.961;
 			// Berat Satuan Pcs
-			const BERAT_PER_PCS = 10.663;
+			const BERAT_PER_PCS = 10.682;
 
 			// DATA ============================================================
 			function DATA_Construct(putih,biru) {

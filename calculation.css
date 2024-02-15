@@ -1,0 +1,49 @@
+:root {
+    --p1color1: #F6F1F1;
+    --p1color2: #AFD3E2;
+    --p1color3: #19A7CEaa;
+    --p1color4: #146C94;
+
+    --p2color1: #FFD93D33;
+    --p2color2: #FFD93Daa;
+
+    --p3color1: #C1F2B0;
+    --p3color2: #65B741aa;
+}
+/* Sections =======================================*/
+/* Info */
+#info {
+    margin-bottom: 10px;
+}
+
+/* Calculations ================================= */
+summary {
+    background-color: var(--p1color3);
+}
+summary, details > div {
+    padding: 10px;
+}
+details {
+    background-color: var(--p1color2);
+    margin-bottom: 5px;
+}
+#cap-lelehan-white {
+    display: flex;
+}
+#lelehan-white {
+    margin-left: 20px;
+}
+#total_reject {
+    background-color: var(--p2color1);
+}
+#total_reject summary {
+    background-color: var(--p2color2);
+}
+#total {
+    background-color: var(--p3color1);
+    position: sticky;
+    bottom: 5px;
+}
+#total summary {
+    background-color: var(--p3color2);
+}
