@@ -28,7 +28,7 @@
 							<td>:</td>
 							<td>
 								<select name="mesin" id="mesin">
-									<!-- <option value="cmc08">CMC-08</option> -->
+									<option value="cmc08" disabled>CMC-08</option>
 									<option value="cmc09">CMC-09</option>
 								</select>
 							</td>
@@ -36,7 +36,7 @@
 						<tr>
 							<td><label for="satuan_pcs">Berat satuan pcs</label></td>
 							<td>:</td>
-							<td><input type="number" name="satuan_pcs" id="satuan_pcs" value="10.682"></td>
+							<td><input type="number" name="satuan_pcs" id="satuan_pcs" placeholder="default: 10.682" value="10.682"> <button id="default_btn" style="display: none;">Set to default</button></td>
 						</tr>
 					</table>
 				</section>
@@ -288,7 +288,7 @@
 			const WHITE_LDPE_PERCENTAGE = 39.216;
 			const WHITE_MB_PUTIH_PERCENTAGE = 1.961;
 			// Berat Satuan Pcs
-			const BERAT_PER_PCS = 10.682;
+			let berat_per_pcs = 10.682;
 
 			// DATA ============================================================
 			function DATA_Construct(putih,biru) {
@@ -327,6 +327,23 @@
 			var total_reject_ID = new ID_Construct('total_reject_pcs','total_reject_kg','','','','')
 			var total_ID = new ID_Construct('total_pcs','total_kg','total_hdpe','total_ldpe','total_mbputih','total_mbbiru')
 		
+			var berat_per_pcs_ID = LMN_ID('satuan_pcs')
+			var default_btn_ID = LMN_ID('default_btn')
+			
+			berat_per_pcs_ID.addEventListener('input', e => {
+				berat_per_pcs = parseFloat(e.target.value)
+				if(berat_per_pcs !== 10.682) {
+					default_btn_ID.style.display = 'inline';
+				} else {
+					default_btn_ID.style.display = 'none';
+				}
+			})
+			default_btn_ID.addEventListener('click', () => {
+				berat_per_pcs_ID.value = 10.682
+				berat_per_pcs = 10.682
+				default_btn_ID.style.display = 'none';
+			})
+
 			// FUNCTIONS =======================================================
 			function formatDecimal(value,isDecimal) {
 				return parseFloat(value).toFixed(isDecimal ? 3 : 0)
@@ -410,12 +427,44 @@
 				showData(isNA(total_DATA.mb_putih,true),total_ID.mb_putih)
 				showData(isNA(total_DATA.mb_biru,true),total_ID.mb_biru)
 			}
+			function inputEvent(e,DATA,ID,fromTo,category,functions1,functions2) {
+				// e = event target value or ID value
+				// DATA = ok_DATA, reject_DATA etc.
+				// ID = ok_ID, reject_ID etc.
+				// fromTo = 'pcsToKg' or 'kgToPcs'
+				// category = 'ok', 'reject' etc.
+				// functions1 = array of functions execute before material calculation
+				// functions2 = array of functions execute after material calculation
+				if (fromTo === 'pcsToKg') {
+					DATA.pcs = parseFloat(ID.pcs.value != '' ? ID.pcs.value : 0)
+					DATA.kg = pcsToKg(DATA.pcs,berat_per_pcs)
+				} else if (fromTo === 'kgToPcs') {
+					DATA.kg = parseFloat(ID.kg.value != '' ? ID.kg.value : 0)
+					DATA.pcs = kgToPcs(DATA.kg,berat_per_pcs)
+				}
+				showData(isEmpty(DATA.kg,true),ID.kg)
+				if (functions1.length) { // <-- Execute only if exist
+					for (let i = 0; i < functions1.length; i++) {
+						functions1[i]()
+					}
+				}
+				calculateMaterial(DATA,category)
+				showDataMaterial(DATA,ID)
+				if (functions2.length) { // <-- Execute only if exist
+					for (let i = 0; i < functions2.length; i++) {
+						functions2[i]()
+					}
+				}
+			}
+			// ok_ID.pcs.addEventListener('input', e => {
+			// 	inputEvent(e,ok_DATA,ok_ID,'ok',[],[calculateTotal,showTotal])
+			// })
 		
 			// Input Events
 			// OK
 			ok_ID.pcs.addEventListener('input', e => {
 				ok_DATA.pcs = parseFloat(e.target.value != '' ? e.target.value : 0)
-				ok_DATA.kg = pcsToKg(ok_DATA.pcs,BERAT_PER_PCS)
+				ok_DATA.kg = pcsToKg(ok_DATA.pcs,berat_per_pcs)
 				showData(isEmpty(ok_DATA.kg,true),ok_ID.kg)
 				calculateMaterial(ok_DATA,'ok')
 				showDataMaterial(ok_DATA,ok_ID)
@@ -424,7 +473,7 @@
 			})
 			ok_ID.kg.addEventListener('input', e => {
 				ok_DATA.kg = parseFloat(e.target.value != '' ? e.target.value : 0)
-				ok_DATA.pcs = kgToPcs(ok_DATA.kg,BERAT_PER_PCS)
+				ok_DATA.pcs = kgToPcs(ok_DATA.kg,berat_per_pcs)
 				showData(isEmpty(ok_DATA.pcs,false),ok_ID.pcs)
 				calculateMaterial(ok_DATA,'ok')
 				showDataMaterial(ok_DATA,ok_ID)
@@ -435,7 +484,7 @@
 			// Reject
 			reject_ID.pcs.addEventListener('input', e => {
 				reject_DATA.pcs = parseFloat(e.target.value != '' ? e.target.value : 0)
-				reject_DATA.kg = pcsToKg(reject_DATA.pcs,BERAT_PER_PCS)
+				reject_DATA.kg = pcsToKg(reject_DATA.pcs,berat_per_pcs)
 				showData(isEmpty(reject_DATA.kg,true),reject_ID.kg)
 				calculateMaterial(reject_DATA,'reject')
 				showDataMaterial(reject_DATA,reject_ID)
@@ -446,7 +495,7 @@
 			})
 			reject_ID.kg.addEventListener('input', e => {
 				reject_DATA.kg = parseFloat(e.target.value != '' ? e.target.value : 0)
-				reject_DATA.pcs = kgToPcs(reject_DATA.kg,BERAT_PER_PCS)
+				reject_DATA.pcs = kgToPcs(reject_DATA.kg,berat_per_pcs)
 				showData(isEmpty(reject_DATA.pcs,false),reject_ID.pcs)
 				calculateMaterial(reject_DATA,'reject')
 				showDataMaterial(reject_DATA,reject_ID)
@@ -459,7 +508,7 @@
 			// Lelehan Biru
 			blue_ID.pcs.addEventListener('input', e => {
 				blue_DATA.pcs = parseFloat(e.target.value != '' ? e.target.value : 0)
-				blue_DATA.kg = pcsToKg(blue_DATA.pcs,BERAT_PER_PCS)
+				blue_DATA.kg = pcsToKg(blue_DATA.pcs,berat_per_pcs)
 				showData(isEmpty(blue_DATA.kg,true),blue_ID.kg)
 				calculateMaterial(blue_DATA,'blue')
 				showDataMaterial(blue_DATA,blue_ID)
@@ -470,7 +519,7 @@
 			})
 			blue_ID.kg.addEventListener('input', e => {
 				blue_DATA.kg = parseFloat(e.target.value != '' ? e.target.value : 0)
-				blue_DATA.pcs = kgToPcs(blue_DATA.kg,BERAT_PER_PCS)
+				blue_DATA.pcs = kgToPcs(blue_DATA.kg,berat_per_pcs)
 				showData(isEmpty(blue_DATA.pcs,false),blue_ID.pcs)
 				calculateMaterial(blue_DATA,'blue')
 				showDataMaterial(blue_DATA,blue_ID)
@@ -493,7 +542,7 @@
 			// Cap
 			white_ID.cap.pcs.addEventListener('input', e => {
 				white_DATA.cap.pcs = parseFloat(e.target.value != '' ? e.target.value : 0)
-				white_DATA.cap.kg = pcsToKg(white_DATA.cap.pcs,BERAT_PER_PCS)
+				white_DATA.cap.kg = pcsToKg(white_DATA.cap.pcs,berat_per_pcs)
 				showData(isEmpty(white_DATA.cap.kg,true),white_ID.cap.kg)
 				calculateWhite()
 				showWhite()
@@ -506,7 +555,7 @@
 			})
 			white_ID.cap.kg.addEventListener('input', e => {
 				white_DATA.cap.kg = parseFloat(e.target.value != '' ? e.target.value : 0)
-				white_DATA.cap.pcs = kgToPcs(white_DATA.cap.kg,BERAT_PER_PCS)
+				white_DATA.cap.pcs = kgToPcs(white_DATA.cap.kg,berat_per_pcs)
 				showData(isEmpty(white_DATA.cap.pcs,false),white_ID.cap.pcs)
 				calculateWhite()
 				showWhite()
@@ -520,7 +569,7 @@
 			// Lelehan
 			white_ID.lelehan.pcs.addEventListener('input', e => {
 				white_DATA.lelehan.pcs = parseFloat(e.target.value != '' ? e.target.value : 0)
-				white_DATA.lelehan.kg = pcsToKg(white_DATA.lelehan.pcs,BERAT_PER_PCS)
+				white_DATA.lelehan.kg = pcsToKg(white_DATA.lelehan.pcs,berat_per_pcs)
 				showData(isEmpty(white_DATA.lelehan.kg,true),white_ID.lelehan.kg)
 				calculateWhite()
 				showWhite()
@@ -533,7 +582,7 @@
 			})
 			white_ID.lelehan.kg.addEventListener('input', e => {
 				white_DATA.lelehan.kg = parseFloat(e.target.value != '' ? e.target.value : 0)
-				white_DATA.lelehan.pcs = kgToPcs(white_DATA.lelehan.kg,BERAT_PER_PCS)
+				white_DATA.lelehan.pcs = kgToPcs(white_DATA.lelehan.kg,berat_per_pcs)
 				showData(isEmpty(white_DATA.lelehan.pcs,false),white_ID.lelehan.pcs)
 				calculateWhite()
 				showWhite()
